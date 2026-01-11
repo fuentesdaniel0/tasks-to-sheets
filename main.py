@@ -1,8 +1,10 @@
 """
-This script retrieves tasks from Google Tasks and appends them to a Google Sheet.
+This script retrieves tasks from Google Tasks and appends new tasks to a Google Sheet.
 
 It authenticates with the Google API, fetches all task lists and their tasks,
-formats the data, and then appends it to the specified spreadsheet.
+checks for existing tasks in the sheet to avoid duplicates, and appends only new tasks.
+It also records a history of additions, including an AI-generated summary of the changes,
+to a separate "History" tab in the same spreadsheet.
 """
 
 import sys
@@ -21,7 +23,6 @@ load_dotenv()
 
 # Define the scopes required for Google Tasks and Google Sheets APIs.
 SCOPES = [
-    'https://www.googleapis.com/auth/tasks',
     'https://www.googleapis.com/auth/tasks.readonly',
     'https://www.googleapis.com/auth/spreadsheets'
 ]
